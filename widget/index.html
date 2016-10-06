@@ -5,23 +5,24 @@
     <meta charset="UTF-8">
 
     <!-- CSS -->
-    <link href="../../../scripts/owlCarousel/owlCarousel.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../scripts/owlCarousel/owlCarousel.css"/>
     <link rel="stylesheet" href="../../../styles/helper.css">
     <link rel="stylesheet" href="../../../styles/siteIcons.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="src/css/style.css">
 
     <!-- JS -->
     <script src="../../../scripts/jquery/jquery-1.11.2.min.js"></script>
     <script src="../../../scripts/smartcrop.js"></script>
     <script src="../../../scripts/angular/angular.min.js"></script>
 
-    <script src="js/angular-owl-carousel.js"></script>
-    <script type="text/javascript" src="../../../scripts/buildfire.js"></script>
-    <script type="text/javascript" src="../../../scripts/owlCarousel/owlCarousel.js"></script>
+    <script src="src/js/angular-owl-carousel.js"></script>
+    
+    <script src="../../../scripts/buildfire.js"></script>
+    <script src="../../../scripts/owlCarousel/owlCarousel.js"></script>
     <script src="../../../scripts/buildfire/components/carousel/carousel.js"></script>
     <script src="../../../scripts/buildfire/components/pluginInstance/sortableList.js"></script>
-    <script src="../../../scripts/angular/ng-infinite-scroll.custom.js "  type="application/javascript"></script>
-    <script type="text/javascript" src="widget.controller.js"></script>
+    <script src="../../../scripts/angular/ng-infinite-scroll.custom.js"></script>
+    <script src="src/widget.controller.js"></script>
 
 </head>
 <body ng-controller="folderPluginCtrl" ng-cloak data-back-img="{{ data.design.backgroundImage}}" class="infinite-scroll-parent">
@@ -71,6 +72,16 @@
             });
         }
     }
+    var loadTime = function() {
+        window.setTimeout(function () {
+            var navigationStart = performance.timing.navigationStart;//Beginning
+            var loadEventEnd = performance.timing.loadEventEnd; //Ending
+
+            console.log("User-perceived page loading time: ", loadEventEnd - navigationStart);
+        }, 0);
+    };
+
+    window.addEventListener("load", loadTime, false);
 
 </script>
 <div data-ng-init="setWidth()" class="holder padding-zero hasBackground fullHeight" id="mainContainer">
