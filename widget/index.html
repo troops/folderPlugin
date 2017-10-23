@@ -7,7 +7,7 @@
 </head>
 <body>
 <div id="carousel" class="sliderCarousel"></div>
-<div id="txt" class="text-left padded padding-bottom-zero clearfix folder-plugin-text hide-empty"></div>
+<div id="txt" class="text-left folder-plugin-text clearfix hide-empty"></div>
 <div id="pluginsContainer"></div>
 <script>
     var plugins = [];
@@ -27,6 +27,9 @@
                 selector: carouselContainer,
                 items: carouselImages
             });
+            carouselContainer.classList.remove('hide');
+        } else {
+            carouselContainer.classList.add('hide');
         }
 
         {
@@ -38,6 +41,8 @@
             }
             if (txt.innerHTML == '') {
                 txt.classList.add('hide');
+            } else {
+                txt.classList.remove('hide');
             }
         }
 
@@ -50,7 +55,7 @@
 
             var options = calcImgOptions(layout);
 
-            if(layout == 12){
+            if (layout == 12) {
                 var pluginItemFrame = document.createElement('div');
                 pluginItemFrame.classList.add("pluginItemFrame");
 
@@ -92,7 +97,7 @@
                             var iIcon = document.createElement('i');
                             iIcon.className += " main-icon " + p.iconClassName;
                             if ([3, 4, 5, 6, 7, 9, 10, 11].indexOf(layout) > -1) {
-                                iIcon.style.fontSize = calcFontSize(options,layout) + "px";
+                                iIcon.style.fontSize = calcFontSize(options, layout) + "px";
                             }
                             span.append(iIcon);
                             divImg.appendChild(span);
@@ -151,17 +156,17 @@
                     pluginsContainer.appendChild(pluginItem);
 
                 } else {
-                    if((i+1) % 4 == 0){
+                    if ((i + 1) % 4 == 0) {
                         pluginsWrapper.appendChild(pluginItem);
                         pluginItemSlidesContainer.appendChild(pluginsWrapper);
                         //create new wrapper
                         pluginsWrapper = document.createElement('div');
                         pluginsWrapper.classList.add("pluginsWrapper");
 
-                    }else{
+                    } else {
                         pluginsWrapper.appendChild(pluginItem);
 
-                        if((i + 1 ) == plugins.length){
+                        if ((i + 1 ) == plugins.length) {
                             pluginItemSlidesContainer.appendChild(pluginsWrapper);
                         }
                     }
@@ -180,7 +185,7 @@
                     classNamePrevCtrl: '',
                     classNameNextCtrl: '',
                     infinite: 1,
-                    slideToScroll : 1
+                    slideToScroll: 1
                 });
             }
         });
@@ -247,9 +252,9 @@
         if (obj.data.design.backgroundImage) {
 
             style.innerHTML += "body { background: no-repeat url('" + buildfire.imageLib.cropImage(obj.data.design.backgroundImage, {
-                width: window.innerWidth,
-                height: window.innerHeight
-            }) + "') !Important; background-size: cover !important; } ";
+                    width: window.innerWidth,
+                    height: window.innerHeight
+                }) + "') !Important; background-size: cover !important; } ";
         }
 
         if (obj.data.design.hideText)
@@ -268,15 +273,15 @@
         loadData(null, obj)
     });
 
-    function calcFontSize(options,layout) {
+    function calcFontSize(options, layout) {
         var fontSize = 0;
         if ([6].indexOf(layout) >= 0) {
             fontSize = options.height - 22;
         }
-        else if ([5].indexOf(layout) >= 0){
-            fontSize = options.height ;
-        }else{
-            fontSize =  options.height - 15;
+        else if ([5].indexOf(layout) >= 0) {
+            fontSize = options.height;
+        } else {
+            fontSize = options.height - 15;
         }
 
         return fontSize;
@@ -330,6 +335,19 @@
 
 </script>
 <style>
+    .folder-plugin-text {
+        padding: 15px 15px 0px 15px;
+    }
+
+    .folder-plugin-text p {
+        margin-bottom: 0px !important;
+    }
+
+    #pluginsContainer {
+        padding-top: 15px;
+        display: block;
+    }
+
     /*
 
                                         Carousel
@@ -337,9 +355,10 @@
 
     */
 
-    #carousel ul{
+    #carousel ul {
         margin-bottom: 0px !important;
     }
+
     #pluginsContainer .pluginItem {
         width: 100%;
         display: block;
@@ -371,7 +390,7 @@
         top: 8px;
     }
 
-    .layout1 .pluginItem .media-holder.media-holder-text span {
+    .layout1 .media-holder-text span {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -407,7 +426,7 @@
         top: 8px;
     }
 
-    .layout2 .pluginItem .media-holder.media-holder-text span {
+    .layout2 .media-holder-text span {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -421,6 +440,14 @@
         */
     .layout3 .media-holder-text {
         padding: 15px;
+    }
+
+    .layout3 .media-holder-text span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+        text-align: left;
     }
 
     .layout3 .media-holder {
@@ -441,6 +468,14 @@
         bottom: 0px;
         width: 100%;
         opacity: .85;
+    }
+
+    .layout4 .media-holder-text span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+        text-align: left;
     }
 
     .layout4 .media-holder {
@@ -467,7 +502,7 @@
         bottom: 0;
     }
 
-    .layout5 .media-holder-text span{
+    .layout5 .media-holder-text span {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -485,6 +520,17 @@
         float: left;
     }
 
+    .layout6 .media-holder-text {
+        padding-bottom: 20px;
+    }
+
+    .layout6 .media-holder-text span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+    }
+
     /*
                                                                     Layout-7
         */
@@ -498,6 +544,14 @@
         width: 100%;
         opacity: .85;
         bottom: 0px;
+    }
+
+    .layout7 .media-holder-text span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+        text-align: left;
     }
 
     .layout7 .media-holder {
@@ -536,7 +590,7 @@
         top: 8px;
     }
 
-    .layout8 .pluginItem .media-holder.media-holder-text span {
+    .layout8 .media-holder-text span {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -578,6 +632,13 @@
         text-align: center;
     }
 
+    .layout9 .media-holder-text span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+    }
+
     .layout9 .media-holder {
         text-align: center;
         width: 100%;
@@ -614,6 +675,13 @@
         z-index: 7;
         -webkit-transform: translate3d(0, 0, 0);
         text-align: center;
+    }
+
+    .layout10 .media-holder-text span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
     }
 
     .layout10 .media-holder {
@@ -675,7 +743,7 @@
         border-radius: 3px;
     }
 
-    .layout12 .pluginItemFrame{
+    .layout12 .pluginItemFrame {
         position: relative;
         width: 100%;
         margin: 0 auto;
@@ -683,10 +751,13 @@
         white-space: nowrap;
     }
 
-    .layout12 .pluginItem .media-holder.media-holder-text span {
+    .layout12 .media-holder-text span {
         display: block;
         text-align: center;
         padding: 10px 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .layout12 .media-holder.media-holder-text {
@@ -694,10 +765,10 @@
         width: 100%;
     }
 
-    .layout12 .pluginsWrapper{
+    .layout12 .pluginsWrapper {
         position: relative;
         display: inline-block;
-        width:100%;
+        width: 100%;
         vertical-align: top;
     }
 </style>
