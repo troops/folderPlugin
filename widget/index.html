@@ -249,9 +249,15 @@
         style = document.createElement('style');
         style.id = "injectedStyle";
 
-        if (obj.data.design.backgroundImage) {
+        var bgImage = obj.data.design.backgroundImage || obj.data.design.lgBackgroundImage;
 
-            style.innerHTML += "body { background: no-repeat url('" + buildfire.imageLib.cropImage(obj.data.design.backgroundImage, {
+        if(obj.data.design.lgBackgroundImage && window.innerWidth >= 600){
+            //iPads
+            bgImage = obj.data.design.lgBackgroundImage;
+        }
+
+        if (bgImage) {
+            style.innerHTML += "body { background: no-repeat url('" + buildfire.imageLib.cropImage(bgImage, {
                     width: window.innerWidth,
                     height: window.innerHeight
                 }) + "') !Important; background-size: cover !important; } ";
