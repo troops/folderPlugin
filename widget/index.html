@@ -88,6 +88,8 @@
                             divImg.classList.add("hasImg");
                             var img = document.createElement('img');
                             img.src = buildfire.imageLib.cropImage(p.iconUrl, options);
+                            img.style.minHeight = options.height + "px";
+                            img.style.maxHeight = options.height + "px";
                             img.alt = "plugin-img";
                             divImg.appendChild(img);
                         }
