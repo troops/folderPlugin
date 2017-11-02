@@ -79,9 +79,9 @@
 
                 if (layout != 12) {
                     var divImg = document.createElement('div');
-                    if ([3, 4, 5, 6, 7, 9, 10, 11].indexOf(layout) > -1) {
-//                        divImg.style.minHeight = options.height + "px";
-//                        divImg.style.maxHeight = options.height + "px";
+                    if ([6,11].indexOf(layout) > -1) {
+                        divImg.style.minHeight = options.height + "px";
+                        divImg.style.maxHeight = options.height + "px";
                     }
                     divImg.classList.add("media-holder");
                     divImg.classList.add("media-holder-icon");
@@ -303,12 +303,12 @@
             option.height = option.width * 9 / 16;
         }
         else if ([1, 8].indexOf(layout) >= 0) {
-            option.width = 50;
-            option.height = 50;
+            option.width = window.innerWidth * (0.15);
+            option.height = option.width;
         }
         else if (layout == 2) {
-            option.width = 100;
-            option.height = 60;
+            option.width = window.innerWidth * (0.32);
+            option.height = window.innerWidth * (0.18);
         }
         else if ([5, 11].indexOf(layout) >= 0) {
             option.width = Math.round(window.innerWidth / 2);
@@ -397,10 +397,8 @@
     }
 
     .layout1 .pluginItem .media-holder.media-holder-icon {
-        width: 60px;
-        height: 60px;
-        line-height: 58px;
-        margin: inherit;
+        width: 15vw;
+        height: 15vw;
         margin-right: 10px;
         border-radius: 4px;
         margin: 5px 10px 5px 5px;
@@ -408,10 +406,19 @@
         float: left;
     }
 
+    .layout1 .pluginItem .media-holder.media-holder-icon img{
+       width: 100%;
+       height: 100%;
+    }
+
     .layout1 .pluginItem .media-holder.media-holder-icon .main-icon {
-        font-size: 44px;
+        font-size: 15vw !important;
         position: relative;
-        top: 8px;
+        top: -1px;
+    }
+
+    .layout1 .pluginItem .media-holder.media-holder-icon .main-icon:before{
+        display: inline-block;
     }
 
     .layout1 .media-holder-text span {
@@ -419,7 +426,7 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         position: relative;
-        margin-top: 24px !important;
+        margin-top: 4vh !important;
         display: block;
     }
 
@@ -438,9 +445,8 @@
     }
 
     .layout2 .pluginItem .media-holder.media-holder-icon {
-        width: 110px;
-        height: 60px;
-        line-height: 58px;
+        width: 32vw;
+        height: 18vw;
         margin: inherit;
         margin-right: 10px;
         border-radius: 4px;
@@ -450,10 +456,19 @@
         overflow: hidden;
     }
 
+    .layout2 .pluginItem .media-holder.media-holder-icon img{
+        width: 100%;
+        height: 100%;
+    }
+
     .layout2 .pluginItem .media-holder.media-holder-icon .main-icon {
-        font-size: 44px;
+        font-size: 18vw !important;
         position: relative;
-        top: 8px;
+        top: -1px;
+    }
+
+    .layout2 .pluginItem .media-holder.media-holder-icon .main-icon:before {
+        display: inline-block;
     }
 
     .layout2 .media-holder-text span {
@@ -461,7 +476,7 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         position: relative;
-        margin-top: 24px !important;
+        margin-top: 5vh !important;
         display: block;
     }
 
@@ -532,6 +547,15 @@
         bottom: 0;
     }
 
+    .layout5 .pluginItem .media-holder.media-holder-icon .main-icon {
+        font-size: 48.8vw !important;
+        position: relative;
+        top: -1px;
+    }
+    .layout5 .pluginItem .media-holder.media-holder-icon .main-icon:before {
+        display: inline-block;
+    }
+
     .layout5 .media-holder-text span {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -551,7 +575,7 @@
     }
 
     .layout6 .media-holder-text {
-        padding: 20px 0px;
+        padding: 10px 0px;
     }
 
     .layout6 .media-holder-text span {
@@ -593,7 +617,6 @@
                                                                     Layout-8
         */
     #pluginsContainer.layout8 .pluginItem {
-        min-height: 70px;
         display: block;
         border-top: 1px solid rgba(57, 52, 46, 0.25) !important;
     }
@@ -609,9 +632,8 @@
     }
 
     .layout8 .pluginItem .media-holder.media-holder-icon {
-        width: 60px;
-        height: 60px;
-        line-height: 58px;
+        width: 15vw;
+        height: 15vw;
         margin: inherit;
         margin-right: 10px;
         border-radius: 4px;
@@ -621,9 +643,12 @@
     }
 
     .layout8 .pluginItem .media-holder.media-holder-icon .main-icon {
-        font-size: 44px;
+        font-size: 15vw !important;
         position: relative;
-        top: 8px;
+        top: -1px;
+    }
+    .layout8 .pluginItem .media-holder.media-holder-icon .main-icon:before {
+        display: inline-block;
     }
 
     .layout8 .media-holder-text span {
@@ -631,7 +656,7 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         position: relative;
-        margin-top: 24px !important;
+        margin-top: 4.5vh !important;
         display: block;
     }
 
@@ -773,6 +798,15 @@
     .layout11 .media-holder {
         text-align: center;
         width: 100%;
+    }
+
+    .layout11 .pluginItem .media-holder.media-holder-icon .main-icon {
+        font-size: 48vw !important;
+        position: relative;
+        top: -1px;
+    }
+    .layout11 .pluginItem .media-holder.media-holder-icon .main-icon:before {
+        display: inline-block;
     }
 
     /*
