@@ -3,7 +3,6 @@
 <head lang="en">
     <script src="../../../scripts/buildfire.js"></script>
     <script src="../../../scripts/buildfire/components/carouselLight/carouselLight.js"></script>
-    <script src="../../../scripts/buildfire/components/pluginInstance/sortableList.js"></script>
 </head>
 <body id="light-folder-body">
 <div id="carousel" class="sliderCarousel"></div>
@@ -197,10 +196,42 @@
     function getPlugins(obj, callback) {
         var plugins = [];
         if (obj.data.content.loadAllPlugins) {
+            function _mapFromSearch(data) {
+                var result = [], dataResult = [], dataResultLength = 0, currentPlugin = null, tempObj = null;
+                if (data.result && data.result instanceof Array) {
+                    dataResult = data.result;
+                    dataResultLength = dataResult.length;
+                    for (var i = 0; i < dataResultLength; i++) {
+
+                        currentPlugin = dataResult[i];
+                        if (currentPlugin.data && currentPlugin.data._buildfire) {
+                            tempObj = {};
+
+                            tempObj.folderName = currentPlugin.data._buildfire.pluginType.result[0].folderName;
+                            tempObj.instanceId = currentPlugin.data.instanceId;
+                            tempObj.iconUrl = currentPlugin.data.iconUrl;
+                            tempObj.pluginTypeId = currentPlugin.data._buildfire.pluginType.data;
+                            tempObj.pluginTypeName = currentPlugin.data._buildfire.pluginType.result[0].name;
+                            tempObj.title = currentPlugin.data.title;
+                            tempObj.iconClassName = currentPlugin.data.iconClassName;
+                            result.push(tempObj);
+                            tempObj = null;
+                            currentPlugin = null;
+                        }
+                    }
+                }
+                return result;
+            }
+
             var searchOptions = {pageIndex: 0, pageSize: 100};
-            buildfire.components.pluginInstance.getAllPlugins(searchOptions, function (err, res) {
-                plugins = res.data;
-                callback(res.data);
+
+            buildfire.pluginInstance.search(searchOptions, function (err, result) {
+                if (err) {
+                    console.error("Error searching plugins: ", err);
+                }
+                var data = _mapFromSearch(result);
+                plugins = data;
+                callback(data);
             });
         }
         else {
