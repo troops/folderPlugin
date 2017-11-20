@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta name="buildfire" content="disableBootstrap,disableAppStyles"/>
-    <script src="../../../scripts/buildfire.min.js"></script>
+    <script src="../../../scripts/_bundles/buildfire_lightcarousel.min.js"></script>
     <!--this css is important to be loaded first for the first paint-->
     <style>
         .hide {
@@ -13,6 +13,8 @@
             display: block !important;
         }
         #carousel {
+            width: 100%;
+            min-width:100%;
             max-height: 56vw;
             min-height: 56vw;
             overflow-y: hidden;
@@ -510,21 +512,18 @@
     }
 
     function renderCarousel(carouselImages, layout) {
-        function _injectCarouselScript() {
-            //check if script exists to avoid adding it multiple times when you do changes on control side
-            if (!document.getElementById('lightCarouselScript')) {
-                var script = document.createElement('script');
-                script.id = "lightCarouselScript";
-                script.src = '../../../scripts/buildfire/components/carouselLight/carouselLight.js';
-                document.head.appendChild(script);
-            } else {
-                //reload slider
-                _lightCarouselLoaded();
-            }
-        }
-
         if (layout == 12) {
-            _injectCarouselScript()
+
+            var pluginsContainer = document.getElementById("pluginsContainer");
+            var carouselLayout12 = new buildfire.components.carousel.view({
+                selector: pluginsContainer,
+                classNameFrame: 'pluginItemFrame',
+                classNameSlideContainer: 'pluginItemSlidesContainer',
+                classNamePrevCtrl: '',
+                classNameNextCtrl: '',
+                infinite: 1,
+                slideToScroll: 1
+            });
         } else {
             var carouselContainer = document.getElementById("carousel");
             if (carouselImages && carouselImages.length > 0) {
@@ -532,8 +531,13 @@
                  if more than one image add carousel else add image directly to the carousel container
                  */
                 if (carouselImages.length > 1) {
-                    carouselContainer.setAttribute('data-images', JSON.stringify(carouselImages));
-                    _injectCarouselScript()
+
+                    var carousel = new buildfire.components.carousel.view({
+                        selector: carouselContainer,
+                        items: carouselImages,
+                        speed: 1000
+                    });
+
                 } else {
                     //add image directly to carousel container without adding the carousel lib
                     carouselContainer.innerHTML = '';
@@ -551,34 +555,6 @@
             } else {
                 carouselContainer.classList.add('hide');
             }
-        }
-    }
-
-    //this function is called by light carousel when it's loaded
-    function _lightCarouselLoaded() {
-        if (window.layout == 12) {
-            var pluginsContainer = document.getElementById("pluginsContainer");
-            var carouselLayout12 = new buildfire.components.carousel.view({
-                selector: pluginsContainer,
-                classNameFrame: 'pluginItemFrame',
-                classNameSlideContainer: 'pluginItemSlidesContainer',
-                classNamePrevCtrl: '',
-                classNameNextCtrl: '',
-                infinite: 1,
-                slideToScroll: 1
-            });
-        } else {
-            var carouselContainer = document.getElementById("carousel");
-            var carouselImagesStr = carouselContainer.getAttribute('data-images');
-            var carouselImages = [];
-            if (carouselImagesStr) {
-                carouselImages = JSON.parse(carouselImagesStr);
-            }
-            var carousel = new buildfire.components.carousel.view({
-                selector: carouselContainer,
-                items: carouselImages,
-                speed: 1000
-            });
         }
     }
 
