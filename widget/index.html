@@ -20,10 +20,22 @@
             overflow-y: hidden;
         }
 
+        #pluginsContainer .pluginItem{
+            position: relative;
+        }
+
+        #pluginsContainer:not(.layout12) .pluginItem .pluginItemDetails {
+            position:absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+        }
 
         .media-holder.media-holder-icon.hasImg {
             position: relative;
             overflow: hidden;
+            height:100%;
         }
 
         .media-holder.media-holder-icon.hasImg img {
@@ -220,7 +232,7 @@
 
                             var img = document.createElement('img');
                             img.setAttribute("src", buildfire.imageLib.resizeImage(_croppedImg, {
-                                width: 30,
+                                width: 10,
                                 disablePixelRation: true
                             }));
                             img.classList.add('blur-effect');
@@ -667,12 +679,6 @@
         overflow: hidden;
     }
 
-    #pluginsContainer.layout1 .pluginItem .pluginItemDetails {
-        display: inline-block;
-        width: 100%;
-        height: 100%;
-    }
-
     .layout1 .pluginItem .media-holder.media-holder-icon {
         width: 15vw;
         height: 15vw;
@@ -716,13 +722,6 @@
         min-height: 21vw;
         max-height: 21vw;
         overflow: hidden;
-    }
-
-    #pluginsContainer.layout2 .pluginItem .pluginItemDetails {
-        display: inline-block;
-        width: 100%;
-        height: 100%;
-        min-height: 20vw;
     }
 
     .layout2 .pluginItem .media-holder.media-holder-icon {
@@ -786,6 +785,10 @@
     .layout3 .media-holder {
         text-align: center;
         width: 100%;
+    }
+
+    .layout3 .media-holder.media-holder-icon.hasImg {
+        max-height: 56vw;
     }
 
     /*
@@ -865,11 +868,14 @@
         width: 50%;
         display: inline-block;
         text-align: center;
-        padding: 0px 15px;
         float: left;
         min-height: 56vw;
         max-height: 56vw;
         overflow: hidden;
+    }
+
+    #pluginsContainer.layout6 .pluginItem .pluginItemDetails{
+        padding: 0px 15px;
     }
 
     .layout6 .pluginItem .media-holder.media-holder-icon {
@@ -939,14 +945,8 @@
         overflow: hidden;
     }
 
-    #pluginsContainer.layout8 .pluginItem .pluginItemDetails {
-        display: inline-block;
-        width: 100%;
-        height: 100%;
-    }
-
     .layout8 img {
-        border-radius: 50%;
+        border-radius: 50% !important;
     }
 
     .layout8 .pluginItem .media-holder.media-holder-icon {
@@ -1038,10 +1038,6 @@
         overflow: hidden;
     }
 
-    #pluginsContainer.layout10 .pluginItem .pluginItemDetails {
-        position: relative;
-    }
-
     .layout10 .blackLayer {
         position: absolute;
         top: 0;
@@ -1096,7 +1092,7 @@
     }
 
     #pluginsContainer.layout11 .pluginItem .pluginItemDetails {
-        position: relative;
+        position: relative !important;
         height: 100%;
     }
 
