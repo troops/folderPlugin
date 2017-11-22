@@ -104,14 +104,42 @@
 
     var lazyLoad = {
         loadImage: function (item) {
+            // load image
+            var img = new Image();
+
             if (item.hasAttribute('data-src')) {
                 item.classList.remove("lazy-img");
-                // load image
-                var img = new Image();
+                _initImg(item);
+            }
+            
+            function _initImg(item) {
                 img.src = item.getAttribute('data-src');
                 img.className = 'reveal-img';
                 if (img.complete) _addImg();
                 else img.onload = _addImg;
+
+                img.onerror=function (e) {
+                    /*
+                    *  Sometimes Image IO doesn't crop image with certain width & height
+                    *  So this for changes the dimensions and try to do another crop using image IO
+                    *  to avoid showing only the blurred image
+                    * */
+
+                    img = new Image();
+                    var originalImg = item.getAttribute('data-original-img');
+                    var cropWidth = parseInt(item.getAttribute('data-crop-width'));
+                    cropWidth +=5;
+                    var cropHeight = parseInt(item.getAttribute('data-crop-height'));
+                    cropHeight+=5;
+
+                    item.setAttribute('data-crop-width',cropWidth);
+                    item.setAttribute('data-crop-height',cropHeight);
+
+                    var _newCroppedImg = buildfire.imageLib.cropImage(originalImg, {width:cropWidth,height: cropHeight});
+                    item.setAttribute('data-src',_newCroppedImg);
+
+                    _initImg(item);
+                };
             }
 
             // replace image
@@ -228,6 +256,9 @@
 
                             divImg.classList.add("hasImg");
                             divImg.setAttribute("data-src", _croppedImg);
+                            divImg.setAttribute("data-original-img", p.iconUrl);
+                            divImg.setAttribute("data-crop-width", options.width);
+                            divImg.setAttribute("data-crop-height", options.height);
                             divImg.classList.add('lazy-img');
 
                             var img = document.createElement('img');
@@ -674,19 +705,19 @@
     #pluginsContainer.layout1 .pluginItem {
         display: inline-block;
         border-top: 1px solid rgba(57, 52, 46, 0.25) !important;
-        min-height: 18vw;
-        max-height: 18vw;
+        min-height: 20vw;
+        max-height: 20vw;
         overflow: hidden;
     }
 
     .layout1 .pluginItem .media-holder.media-holder-icon {
         width: 15vw;
         height: 15vw;
-        margin-right: 10px;
         border-radius: 4px;
-        margin: 2vw;
+        margin: 3vw;
         text-align: center;
         float: left;
+        margin-right: 4vw;
     }
 
     .layout1 .pluginItem .media-holder.media-holder-icon img {
